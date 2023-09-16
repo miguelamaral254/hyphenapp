@@ -1,15 +1,24 @@
 import { View, Text, ImageBackground, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import tw from "tailwind-react-native-classnames"
 
 const LoginScreen = () => {
   const [type, setType] = useState(2) //1. signIn or 2.signUp
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("")
+  const [password, setPassword] = useState("");
+
+  useEffect(()=> {
+    setName("");
+    setEmail("");
+    setPassword("");
+  },[type]);
 
   const signIn = () => {
     console.log(email, password)
+  }
+  const signUp = () => {
+    console.log(name, email, password)
   }
   return (
     <ImageBackground 
@@ -32,10 +41,12 @@ const LoginScreen = () => {
             />
             <Text style={tw.style("font-semibold pb-2 text-white")}>Password</Text>
             <TextInput
-            secureTextEntry={true}
-            style={tw.style("bg-gray-50 border border-gray-300 text-sm text-gray-900 rounded-lg w-full p-2.5 mb-4")}
-            value={password}
-            onChangeText={(text) => setPassword(text)}
+              secureTextEntry={true}
+              style={tw.style(
+                "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5"
+              )}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
             />
             
             <TouchableOpacity style={tw.style("w-full rounded-lg mt-8 bg-black py-3")}
@@ -56,16 +67,26 @@ const LoginScreen = () => {
           <View style={tw.style("w-full p-5")}>
             <Text style={tw.style("font-semibold pb-2 text-white")}>Name</Text>
             <TextInput
-            style={tw.style("bg-gray-50 border border-gray-300 text-sm text-gray-900 rounded-lg w-full p-2.5 mb-4")}/>
+            style={tw.style("bg-gray-50 border border-gray-300 text-sm text-gray-900 rounded-lg w-full p-2.5 mb-4")}
+            value={name}
+            onChangeText={(text)=> setName(text)}/>
             <Text style={tw.style("font-semibold pb-2 text-white")}>Email</Text>
             <TextInput
             keyboardType="email-address" 
-            style={tw.style("bg-gray-50 border border-gray-300 text-sm text-gray-900 rounded-lg w-full p-2.5 mb-4")}/>
+            style={tw.style("bg-gray-50 border border-gray-300 text-sm text-gray-900 rounded-lg w-full p-2.5 mb-4")}
+            value={email}
+            onChangeText={(text) => setEmail(text)}/>
             <Text style={tw.style("font-semibold pb-2 text-white")}>Password</Text>
             <TextInput
-            secureTextEntry={true}
-            style={tw.style("bg-gray-50 border border-gray-300 text-sm text-gray-900 rounded-lg w-full p-2.5 mb-4")}/>
-            <TouchableOpacity style={tw.style("w-full rounded-lg mt-8 bg-black py-3")}>
+              
+              secureTextEntry={true}
+              style={tw.style(
+                "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5"
+              )}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+            />
+            <TouchableOpacity style={tw.style("w-full rounded-lg mt-8 bg-black py-3")} onPress={signUp}>
               <Text style={tw.style("text-center text-white font-bold")}>Sign Up</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>setType(1)}> 
