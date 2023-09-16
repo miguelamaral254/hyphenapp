@@ -5,7 +5,7 @@ import tw from 'tailwind-react-native-classnames';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={tw.style("text-red-400")}>Open up App.js to start working on your app!</Text>
+      <Text style={tw.style("text-red-400")}>Wesley é gay </Text>
       <StatusBar style="auto" />
     </View>
   );
