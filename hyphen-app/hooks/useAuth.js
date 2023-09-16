@@ -9,16 +9,20 @@ export const AuthProvider = ({children}) => {
     const [loadingInitial, setLoadingInitial] = useState(true);
     const [loading, setLoading] = useState(false);
     useEffect(()=>{
-        onAuthStateChanged(auth, (user)=> {
+        const unsubscribe = onAuthStateChanged(auth, (user)=> {
             if(user) {
                 setUser(user);
             }
             else {
                 setUser(null);
             }
+            setLoadingInitial(false);
+            setLoading(false);
         });
+
         return unsubscribe;
     },[]);
+
     const logout = () => {
         signOut(auth).then(()=>{
             setUser(null);
@@ -28,11 +32,11 @@ export const AuthProvider = ({children}) => {
         return {user, setUser, loading, setLoading, logout};
     },[user, loading]);
     return (
-        <AuthContext.Provider>
+        <AuthContext.Provider value={memoedValue}>
             {!loadingInitial && children}
         </AuthContext.Provider>
-    )
-}
+    );
+};
 export default function useAuth() {
     return useContext(AuthContext);
 }

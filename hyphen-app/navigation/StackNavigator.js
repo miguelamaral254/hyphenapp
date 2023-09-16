@@ -3,17 +3,26 @@ import LoginScreen from "../screens/LoginScreen";
 import HomeScreen from "../screens/HomeScreen";
 import ChatScreen from "../screens/ChatScreen";
 import MessageScreen from "../screens/MessageScreen";
+import useAuth from "../hooks/useAuth";
+
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
-    return(
-        <Stack.Navigator
-         screenOptions={{headerShown:false,}}>
-            <Stack.Screen name="Login" component={LoginScreen} />
+  const { user } = useAuth();
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      {user ? (
+        <>
+          <Stack.Group>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Chat" component={ChatScreen} />
             <Stack.Screen name="Message" component={MessageScreen} />
-        </Stack.Navigator>
-    )
-}
-export default StackNavigator
+          </Stack.Group>
+        </>
+      ) : (
+        <Stack.Screen name="Login" component={LoginScreen} />
+      )}
+    </Stack.Navigator>
+  );
+};
+export default StackNavigator;
