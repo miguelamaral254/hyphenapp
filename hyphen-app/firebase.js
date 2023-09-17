@@ -1,8 +1,11 @@
-
-import { initializeApp } from "firebase/app";
-
-import { getAnalytics } from "firebase/analytics";
-import { EmailAuthProvider, getAuth } from "@firebase/auth";
+import { getApps, initializeApp, getApp } from "firebase/app";
+import { getAuth, EmailAuthProvider } from "firebase/auth";
+import { getFirestore, serverTimestamp } from "firebase/firestore";
+import {
+  getReactNativePersistence,
+  initializeAuth,
+} from "firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCvp5u04d-TrM2AXbCIVJZPO52dEQlPWZw",
@@ -15,9 +18,23 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth();
-const provider = new EmailAuthProvider();
+let app, auth;
 
-export {app,analytics, auth, provider }
+if (!getApps().length) {
+  try {
+    app = initializeApp(firebaseConfig);
+    auth = initializeAuth(app, {
+      persistence: getReactNativePersistence(AsyncStorage),
+    });
+  } catch (error) {
+    console.log("Error initializing app: " + error);
+  }
+} else {
+  app = getApp();
+  auth = getAuth(app);
+}
+const provider = new EmailAuthProvider();
+const db = getFirestore();
+const timestamp = serverTimestamp();
+
+export { app, auth, provider, db, timestamp };

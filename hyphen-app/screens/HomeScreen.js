@@ -1,12 +1,21 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-
+import React from "react";
+import { View, Text, SafeAreaView, TouchableOpacity, Image} from "react-native";
+import tw from "tailwind-react-native-classnames";
 const HomeScreen = () => {
   return (
-    <View>
-      <Text>HomeScreen</Text>
-    </View>
-  )
-}
+    <SafeAreaView style={tw.style("flex-1 mt-6")}>
+      <View>
+        <TouchableOpacity>
+          <Image
+            style={tw.style("h-10 w-10 rounded-full")}
+            source={{
+              uri: "https://img.freepik.com/free-icon/user_318-159711.jpg",
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;

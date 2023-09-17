@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react'
 import tw from "tailwind-react-native-classnames"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from '@firebase/auth'
 import { auth } from '../firebase'
+import useAuth from "../hooks/useAuth"
 
 const LoginScreen = () => {
   const [type, setType] = useState(2) //1. signIn or 2.signUp
+  const {loading, setLoading} = useAuth()
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,13 +22,15 @@ const LoginScreen = () => {
     if (email.trim() === "" || password.trim === "") {
       return Alert.alert("Ohhh!!", "You have not entered all details");
     }
+    setLoading(true)
 
     signInWithEmailAndPassword(auth, email, password)
       .then(({user})=>{
-        console.log(user)
+        setLoading(false)
       })
       .catch((err) => {
-        console.log(err)
+        setLoading(false)
+        
       });
   };
   const signUp = () => {
@@ -43,12 +47,20 @@ const LoginScreen = () => {
     })
     
   }
+  if(loading) {
+    return (
+      <View style={tw.style("flex-1 justify-center items-center")}>
+        <Text style={tw.style("font-semibold text-red-400 text-2xl")}>Loading...</Text>
+      </View>
+    )
+  }
   return (
     <ImageBackground
       style={tw.style("flex-1 bg-black")}
       resizeMode="cover"
       
     >
+      
       {type === 1 ? (
         <View style={tw.style("flex-1 justify-center items-center")}>
           <Text style={tw.style("font-bold text-2xl text-green-700")}>Sign In</Text>
