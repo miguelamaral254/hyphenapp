@@ -16,7 +16,7 @@ const DUMMY_DATA = [
   {
     displayName: "Miguel Augusto",
     project: "HYPHEN",
-    projDisc: "APP para devs se inserirem em projetos",
+    projDisc: "App mobile desenvolvido em react native, com prótitpo de alta fidelidade feito no Figma.",
     job: "Software Engineer",
     photoURL:
       "https://instagram.frec17-1.fna.fbcdn.net/v/t51.2885-19/331815343_570029035178473_203142887568872698_n.jpg?stp=dst-jpg_s150x150&cb=efdfa7ed-2feb43a7&efg=eyJxZV9ncm91cHMiOiJbXCJpZ19ianBnX3Byb2ZpbGVfcGljXzA3MDVfd2VicF9jb250cm9sLU5vbmVcIl0ifQ&_nc_ht=instagram.frec17-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=dAvBFURp98kAX8zXpnp&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfCySj4Nd7ziRh2JRSfvCDkx6NSrRTURc0UlRmTAyVddbg&oe=650C4D95&_nc_sid=ee9879",
@@ -25,6 +25,8 @@ const DUMMY_DATA = [
   },
   {
     displayName: "Mark Zuckerberg",
+    project: "Facebook",
+    projDisc: "Rede social",
     job: "Programmer",
     photoURL:
       "https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
@@ -33,6 +35,8 @@ const DUMMY_DATA = [
   },
   {
     displayName: "Justin Mateen",
+    project: "Tinder",
+    projDisc: "App de relacionamentos",
     job: "Software Developer",
     photoURL:
       "https://i.insider.com/606730e3856cd700198a2dd1?width=1136&format=jpeg",
@@ -48,7 +52,7 @@ const HomeScreen = () => {
     <ImageBackground
       style={tw.style("flex-1 bg-black")}
       resizeMode="cover"
-      source={require("../assets/bg.jpg")}
+      source={require("../assets/navista.jpg")}
     >
       <SafeAreaView style={tw.style("flex-1 mt-6")}>
         <View style={tw.style("flex-row items-center justify-between px-5")}>
@@ -77,7 +81,7 @@ const HomeScreen = () => {
               backgroundColor: "transparent",
             }}
             cards={DUMMY_DATA}
-            stackSize={5}
+            stackSize={1}
             cardIndex={0}
             animateCardOpacity
             verticalSwipe={false}
@@ -86,23 +90,28 @@ const HomeScreen = () => {
                 <View
                   key={card.id}
                   style={tw.style(
-                    "flex justify-center items-center bg-white h-3/4 rounded-xl relative bg-pink-400"
+                    "flex items-center bg-white h-3/4 rounded-xl relative bg-transparent border border-2 border-white"
                   )}
                 >
-                  <Text style={tw.style("text-2xl text-white font-bold")}>
+                  <Text style={tw.style("text-2xl text-white pt-10 font-bold")}>
                     {card.project}
                   </Text>
-                  <Text style={tw.style("text-2xl text-white font-bold")}>
+                  <Text style={tw.style("text-2xl text-white font-bold")}>____________________</Text>
+                  <Text style={tw.style("text-white py-2 px-10")}>
                     {card.projDisc}
                   </Text>
+                  <View style={tw.style("text-white pt-16 justify-end")}>
+                  <Text >
+                    Vagas
+                  </Text>
+                  </View>
 
                   <View
                     style={tw.style(
                       "absolute bottom-0 bg-blue-400 w-full justify-between items-center flex-row px-6 py-2 rounded-b-xl shadow-xl"
                     )}
                   >
-                    <View>
-                      <View style={tw.style("flex-row justify-center items-center")}>
+                    <View style={tw.style("flex-row justify-center items-center")}>
                       <Image
                         style={tw.style("h-10 w-10 rounded-full")}
                         source={{ uri: card.photoURL }}
@@ -112,7 +121,6 @@ const HomeScreen = () => {
                         {card.displayName}
                       </Text>
                       <Text>{card.job}</Text>
-                      </View>
                       </View>
                     </View>
                     <Text style={tw.style("text-2xl font-bold")}>
@@ -143,21 +151,37 @@ const HomeScreen = () => {
         </View>
 
         <View style={tw.style("flex flex-row justify-evenly")}>
+        <TouchableOpacity
+            
+            style={tw.style(
+              "items-center justify-center rounded-full w-16 h-16 bg-white"
+            )}
+          >
+            <Entypo name="cw" size={40} color="black" />
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => swipeRef.current.swipeLeft()}
             style={tw.style(
-              "items-center justify-center rounded-full w-16 h-16 bg-red-200"
+              "items-center justify-center rounded-full w-16 h-16 bg-white shadow-2xl"
             )}
           >
-            <Entypo name="cross" size={24} color="red" />
+            <Entypo name="cross" size={40} color="red" />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => swipeRef.current.swipeRight()}
             style={tw.style(
-              "items-center justify-center rounded-full w-16 h-16 bg-green-200"
+              "items-center justify-center rounded-full w-16 h-16 bg-white shadow-2xl"
             )}
           >
-            <Entypo name="heart" size={24} color="green" />
+            <Entypo name="heart" size={40} color="green" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            
+            style={tw.style(
+              "items-center justify-center rounded-full w-16 h-16 bg-white shadow-2xl"
+            )}
+          >
+            <Entypo name="user" size={40} color="black" />
           </TouchableOpacity>
         </View>
       </SafeAreaView>

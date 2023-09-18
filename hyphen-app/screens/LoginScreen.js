@@ -1,4 +1,11 @@
-import { View, Text, TextInput, TouchableOpacity, Alert, Image } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  Image,
+} from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import tw from "tailwind-react-native-classnames";
 import {
@@ -63,10 +70,10 @@ const LoginScreen = () => {
 
   if (loading) {
     return (
-      <View style={tw.style("flex-1 justify-center items-center")}>
-        <Text style={tw.style("font-semibold text-red-400 text-2xl")}>
-          Loading....
-        </Text>
+      <View style={tw.style("flex justify-end items-center")}>
+        <ImageBackground style={tw.style("w-full h-full")} source={require("../assets/navista.jpg")}>
+        <Image style={tw.style("h-1/3 w-full")} source={require("../assets/hy2.png")} />
+        </ImageBackground>
       </View>
     );
   }
@@ -76,15 +83,16 @@ const LoginScreen = () => {
       style={tw.style("flex-1 bg-black")}
       resizeMode="cover"
       source={require("../assets/bg.jpg")}
-      
     >
       {type === 1 ? (
         <View style={tw.style("flex-1 justify-center items-center")}>
-          
-          <Image style={tw.style("h-1/4 w-full")} source={require("../assets/hy2.png")}/>
-          
+          <Image
+            style={tw.style("h-1/4 w-full")}
+            source={require("../assets/hy2.png")}
+          />
+
           <Text style={tw.style("text-gray-300 p-5 font-semibold")}>
-          O melhor lugar do mundo para{"\n"}encontrar parceiros de trabalho
+            O melhor lugar do mundo para{"\n"}encontrar parceiros de trabalho
           </Text>
           <View style={tw.style("w-full p-5")}>
             <Text style={tw.style("font-semibold pb-2 text-white")}>Email</Text>
@@ -96,9 +104,7 @@ const LoginScreen = () => {
               value={email}
               onChangeText={(text) => setEmail(text)}
             />
-            <Text style={tw.style("font-semibold pb-2 text-white")}>
-              Password
-            </Text>
+            <Text style={tw.style("font-semibold pb-2 text-white")}>Senha</Text>
             <TextInput
               keyboardType="default"
               secureTextEntry={true}
@@ -113,22 +119,27 @@ const LoginScreen = () => {
               onPress={signIn}
             >
               <Text style={tw.style("text-center text-white font-bold")}>
-                Sign In
+                Entrar
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setType(2)}>
               <Text style={tw.style("text-center text-gray-100 pt-3")}>
-                Doesn't have an account?
+                Crie sua conta
               </Text>
             </TouchableOpacity>
           </View>
         </View>
       ) : (
         <View style={tw.style("flex-1 justify-center items-center")}>
-          <Text style={tw.style("font-bold text-2xl")}>Sign Up</Text>
-          <Text style={tw.style("text-white")}>Create a new account</Text>
+          <Image
+            style={tw.style("h-1/4 w-full")}
+            source={require("../assets/hy2.png")}
+          />
+          <Text style={tw.style("text-white p-5")}>Crie uma nova conta</Text>
           <View style={tw.style("w-full p-5")}>
-            <Text style={tw.style("font-semibold pb-2 text-white")}>Name</Text>
+            <Text style={tw.style("font-semibold pb-2 text-white")}>
+              Nome completo
+            </Text>
             <TextInput
               keyboardType="default"
               style={tw.style(
@@ -147,9 +158,7 @@ const LoginScreen = () => {
               onChangeText={(text) => setEmail(text)}
               secureTextEntry={false}
             />
-            <Text style={tw.style("font-semibold pb-2 text-white")}>
-              Password
-            </Text>
+            <Text style={tw.style("font-semibold pb-2 text-white")}>Senha</Text>
             <TextInput
               secureTextEntry={true}
               style={tw.style(
@@ -163,12 +172,12 @@ const LoginScreen = () => {
               onPress={signUp}
             >
               <Text style={tw.style("text-center text-white font-bold")}>
-                Sign Up
+                Cria conta
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setType(1)}>
               <Text style={tw.style("text-center text-gray-100 pt-3")}>
-                Already have an account?
+                Já possui uma conta?
               </Text>
             </TouchableOpacity>
           </View>
