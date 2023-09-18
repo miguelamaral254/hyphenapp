@@ -16,7 +16,8 @@ const DUMMY_DATA = [
   {
     displayName: "Miguel Augusto",
     project: "HYPHEN",
-    projDisc: "App mobile desenvolvido em react native, com prótitpo de alta fidelidade feito no Figma.",
+    projDisc:
+      "App mobile desenvolvido em react native, com prótitpo de alta fidelidade feito no Figma.",
     job: "Software Engineer",
     photoURL:
       "https://instagram.frec17-1.fna.fbcdn.net/v/t51.2885-19/331815343_570029035178473_203142887568872698_n.jpg?stp=dst-jpg_s150x150&cb=efdfa7ed-2feb43a7&efg=eyJxZV9ncm91cHMiOiJbXCJpZ19ianBnX3Byb2ZpbGVfcGljXzA3MDVfd2VicF9jb250cm9sLU5vbmVcIl0ifQ&_nc_ht=instagram.frec17-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=dAvBFURp98kAX8zXpnp&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfCySj4Nd7ziRh2JRSfvCDkx6NSrRTURc0UlRmTAyVddbg&oe=650C4D95&_nc_sid=ee9879",
@@ -96,31 +97,33 @@ const HomeScreen = () => {
                   <Text style={tw.style("text-2xl text-white pt-10 font-bold")}>
                     {card.project}
                   </Text>
-                  <Text style={tw.style("text-2xl text-white font-bold")}>____________________</Text>
+                  <Text style={tw.style("text-2xl text-white font-bold")}>
+                    ____________________
+                  </Text>
                   <Text style={tw.style("text-white py-2 px-10")}>
                     {card.projDisc}
                   </Text>
                   <View style={tw.style("text-white pt-16 justify-end")}>
-                  <Text >
-                    Vagas
-                  </Text>
+                    <Text>Vagas</Text>
                   </View>
 
                   <View
                     style={tw.style(
-                      "absolute bottom-0 bg-blue-400 w-full justify-between items-center flex-row px-6 py-2 rounded-b-xl shadow-xl"
+                      "absolute bottom-0 bg-white w-full justify-between items-center flex-row px-6 py-2 rounded-b-xl shadow-xl"
                     )}
                   >
-                    <View style={tw.style("flex-row justify-center items-center")}>
+                    <View
+                      style={tw.style("flex-row justify-center items-center")}
+                    >
                       <Image
                         style={tw.style("h-10 w-10 rounded-full")}
                         source={{ uri: card.photoURL }}
                       />
                       <View style={tw.style("p-2")}>
-                      <Text style={tw.style("text-xl font-bold")}>
-                        {card.displayName}
-                      </Text>
-                      <Text>{card.job}</Text>
+                        <Text style={tw.style("text-xl font-bold")}>
+                          {card.displayName}
+                        </Text>
+                        <Text>{card.job}</Text>
                       </View>
                     </View>
                     <Text style={tw.style("text-2xl font-bold")}>
@@ -136,7 +139,7 @@ const HomeScreen = () => {
                 >
                   <Text style={tw.style("font-bold pb-5")}>
                     {" "}
-                    no more prorojects to see
+                    Sem projetos disponíveis para ver
                   </Text>
                   <Image
                     style={tw.style("h-20 w-20")}
@@ -151,8 +154,7 @@ const HomeScreen = () => {
         </View>
 
         <View style={tw.style("flex flex-row justify-evenly")}>
-        <TouchableOpacity
-            
+          <TouchableOpacity
             style={tw.style(
               "items-center justify-center rounded-full w-16 h-16 bg-white"
             )}
@@ -176,7 +178,6 @@ const HomeScreen = () => {
             <Entypo name="heart" size={40} color="green" />
           </TouchableOpacity>
           <TouchableOpacity
-            
             style={tw.style(
               "items-center justify-center rounded-full w-16 h-16 bg-white shadow-2xl"
             )}
