@@ -75,7 +75,7 @@ const LoginScreen = () => {
     <ImageBackground
       style={tw.style("flex-1 bg-black")}
       resizeMode="cover"
-      source={require("../assets/navista.jpg")}
+      source={require("../assets/bg.jpg")}
       
     >
       {type === 1 ? (
@@ -90,7 +90,7 @@ const LoginScreen = () => {
             <TextInput
               keyboardType="email-address"
               style={tw.style(
-                "bg-black border border-gray-300 text-sm text-gray-300 rounded-lg w-full p-2.5 mb-4"
+                "border border-gray-300 text-sm text-gray-300 rounded-lg w-full p-2.5 mb-4"
               )}
               value={email}
               onChangeText={(text) => setEmail(text)}
@@ -102,7 +102,7 @@ const LoginScreen = () => {
               keyboardType="default"
               secureTextEntry={true}
               style={tw.style(
-                "bg-black border border-gray-300 text-sm text-gray-300 rounded-lg w-full p-2.5 mb-4"
+                "border border-gray-300 text-sm text-gray-300 rounded-lg w-full p-2.5 mb-4"
               )}
               value={password}
               onChangeText={(text) => setPassword(text)}
@@ -131,7 +131,7 @@ const LoginScreen = () => {
             <TextInput
               keyboardType="default"
               style={tw.style(
-                "bg-black border border-gray-300 text-sm text-gray-300 rounded-lg w-full p-2.5 mb-4"
+                "border border-gray-300 text-sm text-gray-300 rounded-lg w-full p-2.5 mb-4"
               )}
               value={name}
               onChangeText={(text) => setName(text)}
@@ -140,7 +140,7 @@ const LoginScreen = () => {
             <TextInput
               keyboardType="email-address"
               style={tw.style(
-                "bg-black border border-gray-300 text-sm text-gray-300 rounded-lg w-full p-2.5 mb-4"
+                "border border-gray-300 text-sm text-gray-300 rounded-lg w-full p-2.5 mb-4"
               )}
               value={email}
               onChangeText={(text) => setEmail(text)}
@@ -152,13 +152,13 @@ const LoginScreen = () => {
             <TextInput
               secureTextEntry={true}
               style={tw.style(
-                "bg-black border border-gray-300 text-sm text-gray-300 rounded-lg w-full p-2.5 mb-4"
+                "border border-gray-300 text-sm text-gray-300 rounded-lg w-full p-2.5 mb-4"
               )}
               value={password}
               onChangeText={(text) => setPassword(text)}
             />
             <TouchableOpacity
-              style={tw.style("w-full rounded-lg mt-8 bg-black py-3")}
+              style={tw.style("w-full rounded-lg mt-8 bg-green-600 py-3")}
               onPress={signUp}
             >
               <Text style={tw.style("text-center text-white font-bold")}>

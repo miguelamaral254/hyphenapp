@@ -22,11 +22,11 @@ const StackNavigator = () => {
           </Stack.Group>
           <Stack.Group
             screenOptions={{
-              presentation: "modal",
+              presentation: "Modal",
               ...TransitionPresets.ModalPresentationIOS
             }}
           >
-            <Stack.Screen name="modal" component={ModalScreen} />
+            <Stack.Screen name="Modal" component={ModalScreen} />
           </Stack.Group>
           <Stack.Group
             screenOptions={{
