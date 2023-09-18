@@ -16,7 +16,7 @@ const DUMMY_DATA = [
   {
     displayName: "Miguel Augusto",
     project: "HYPHEN",
-    projDisc:"APP para devs se inserirem em projetos",
+    projDisc: "APP para devs se inserirem em projetos",
     job: "Software Engineer",
     photoURL:
       "https://instagram.frec17-1.fna.fbcdn.net/v/t51.2885-19/331815343_570029035178473_203142887568872698_n.jpg?stp=dst-jpg_s150x150&cb=efdfa7ed-2feb43a7&efg=eyJxZV9ncm91cHMiOiJbXCJpZ19ianBnX3Byb2ZpbGVfcGljXzA3MDVfd2VicF9jb250cm9sLU5vbmVcIl0ifQ&_nc_ht=instagram.frec17-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=dAvBFURp98kAX8zXpnp&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfCySj4Nd7ziRh2JRSfvCDkx6NSrRTURc0UlRmTAyVddbg&oe=650C4D95&_nc_sid=ee9879",
@@ -85,28 +85,35 @@ const HomeScreen = () => {
               return card ? (
                 <View
                   key={card.id}
-                  style={tw.style("bg-white h-3/4 rounded-xl relative")}
+                  style={tw.style(
+                    "flex justify-center items-center bg-white h-3/4 rounded-xl relative bg-pink-400"
+                  )}
                 >
-                  <Image
-                    style={tw.style("absolute top-0 h-full w-full bg-black rounded-xl")}
-                  />
-                 <Text style={tw.style("text-2xl text-white font-bold")}>
-                      {card.age}
-                    </Text>
+                  <Text style={tw.style("text-2xl text-white font-bold")}>
+                    {card.project}
+                  </Text>
+                  <Text style={tw.style("text-2xl text-white font-bold")}>
+                    {card.projDisc}
+                  </Text>
+
                   <View
                     style={tw.style(
                       "absolute bottom-0 bg-blue-400 w-full justify-between items-center flex-row px-6 py-2 rounded-b-xl shadow-xl"
                     )}
                   >
                     <View>
+                      <View style={tw.style("flex-row justify-center items-center")}>
                       <Image
                         style={tw.style("h-10 w-10 rounded-full")}
                         source={{ uri: card.photoURL }}
                       />
+                      <View style={tw.style("p-2")}>
                       <Text style={tw.style("text-xl font-bold")}>
                         {card.displayName}
                       </Text>
                       <Text>{card.job}</Text>
+                      </View>
+                      </View>
                     </View>
                     <Text style={tw.style("text-2xl font-bold")}>
                       {card.age}

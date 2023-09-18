@@ -81,9 +81,10 @@ const LoginScreen = () => {
       {type === 1 ? (
         <View style={tw.style("flex-1 justify-center items-center")}>
           
-          <Text style={tw.style("font-bold text-2xl")}>Sign In</Text>
-          <Text style={tw.style("text-white font-semibold")}>
-            Access to your account
+          <Image style={tw.style("h-1/4 w-full")} source={require("../assets/hy2.png")}/>
+          
+          <Text style={tw.style("text-gray-300 p-5 font-semibold")}>
+          O melhor lugar do mundo para{"\n"}encontrar parceiros de trabalho
           </Text>
           <View style={tw.style("w-full p-5")}>
             <Text style={tw.style("font-semibold pb-2 text-white")}>Email</Text>
