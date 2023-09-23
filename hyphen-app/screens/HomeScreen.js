@@ -5,13 +5,13 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
+  ImageBackground
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import useAuth from "../hooks/useAuth";
 import { Entypo, Ionicons } from "@expo/vector-icons/";
 import { useNavigation } from "@react-navigation/native";
 import Swiper from "react-native-deck-swiper";
-import { ImageBackground } from "react-native";
 const DUMMY_DATA = [
   {
     displayName: "Miguel Augusto",
@@ -20,7 +20,7 @@ const DUMMY_DATA = [
       "App mobile desenvolvido em react native, com prótitpo de alta fidelidade feito no Figma.",
     job: "Software Engineer",
     photoURL:
-      "https://instagram.frec17-1.fna.fbcdn.net/v/t51.2885-19/331815343_570029035178473_203142887568872698_n.jpg?stp=dst-jpg_s150x150&cb=efdfa7ed-2feb43a7&efg=eyJxZV9ncm91cHMiOiJbXCJpZ19ianBnX3Byb2ZpbGVfcGljXzA3MDVfd2VicF9jb250cm9sLU5vbmVcIl0ifQ&_nc_ht=instagram.frec17-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=dAvBFURp98kAX8zXpnp&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfCySj4Nd7ziRh2JRSfvCDkx6NSrRTURc0UlRmTAyVddbg&oe=650C4D95&_nc_sid=ee9879",
+      "https://instagram.frec17-1.fna.fbcdn.net/v/t51.2885-19/331815343_570029035178473_203142887568872698_n.jpg?stp=dst-jpg_s150x150&cb=efdfa7ed-2feb43a7&efg=eyJxZV9ncm91cHMiOiJbXCJpZ19ianBnX3Byb2ZpbGVfcGljXzA3MDVfd2VicF9jb250cm9sLU5vbmVcIl0ifQ&_nc_ht=instagram.frec17-1.fna.fbcdn.net&_nc_cat=101&_https://instagram.frec17-1.fna.fbcdn.net/v/t51.2885-19/331815343_570029035178473_203142887568872698_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.frec17-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=zAjzNMsZJ_UAX8ENpkB&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfBZrWR_946RBwozkz43u4YlP3ASixZhGa6-Dl4iT8S80g&oe=65143695&_nc_sid=ee9879nc_ohc=dAvBFURp98kAX8zXpnp&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfCySj4Nd7ziRh2JRSfvCDkx6NSrRTURc0UlRmTAyVddbg&oe=650C4D95&_nc_sid=ee9879",
     age: 25,
     id: 1,
   },
@@ -49,6 +49,7 @@ const HomeScreen = () => {
   const { user, logout } = useAuth();
   const navigation = useNavigation();
   const swipeRef = useRef();
+  
   return (
     <ImageBackground
       style={tw.style("flex-1 bg-black")}
@@ -59,6 +60,7 @@ const HomeScreen = () => {
         <View style={tw.style("flex-row items-center justify-between px-5")}>
           <TouchableOpacity onPress={logout}>
             <Image
+              resizeMode="contain"
               style={tw.style("h-10 w-10 rounded-full")}
               source={{
                 uri: "https://img.freepik.com/free-icon/user_318-159711.jpg",
@@ -86,14 +88,43 @@ const HomeScreen = () => {
             cardIndex={0}
             animateCardOpacity
             verticalSwipe={false}
+            onSwipedLeft={(cardIndex) => {
+              console.log("Swipe Pass");
+              swipeLeft(cardIndex);
+            }}
+            onSwipedRight={(cardIndex) => {
+              console.log("Swipe Match");
+              swipeRight(cardIndex);
+            }}
+            backgroundColor="#4FD0E9"
+            overlayLabels={{
+              left: {
+                title: "NOPE",
+                style: {
+                  label: {
+                    textAlign: "right",
+                    color: "red",
+                  },
+                },
+              },
+              right: {
+                title: "MATCH",
+                style: {
+                  label: {
+                    color: "#4DED30",
+                  },
+                },
+              },
+            }}
             renderCard={(card) => {
               return card ? (
                 <View
                   key={card.id}
                   style={tw.style(
-                    "flex items-center bg-white h-3/4 rounded-xl relative bg-transparent border border-2 border-white"
+                    "flex items-center bg-white h-3/4 rounded-xl relative bg-blue-400 border border-2 border-white"
                   )}
                 >
+                  
                   <Text style={tw.style("text-2xl text-white pt-10 font-bold")}>
                     {card.project}
                   </Text>
@@ -116,6 +147,7 @@ const HomeScreen = () => {
                       style={tw.style("flex-row justify-center items-center")}
                     >
                       <Image
+                        resizeMode="contain"
                         style={tw.style("h-10 w-10 rounded-full")}
                         source={{ uri: card.photoURL }}
                       />

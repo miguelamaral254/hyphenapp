@@ -72,7 +72,11 @@ const LoginScreen = () => {
     return (
       <View style={tw.style("flex justify-end items-center")}>
         <ImageBackground style={tw.style("w-full h-full")} source={require("../assets/navista.jpg")}>
-        <Image style={tw.style("h-1/3 w-full")} source={require("../assets/hy2.png")} />
+        <View style={tw.style("flex-1 items-center justify-center")}>
+        <Image 
+        resizeMode="contain"
+        style={tw.style("h-1/3 w-full")} source={require("../assets/hy2.png")} />
+        </View>
         </ImageBackground>
       </View>
     );
@@ -87,6 +91,7 @@ const LoginScreen = () => {
       {type === 1 ? (
         <View style={tw.style("flex-1 justify-center items-center")}>
           <Image
+            resizeMode="contain"
             style={tw.style("h-1/4 w-full")}
             source={require("../assets/hy2.png")}
           />
@@ -132,7 +137,8 @@ const LoginScreen = () => {
       ) : (
         <View style={tw.style("flex-1 justify-center items-center")}>
           <Image
-            style={tw.style("h-1/4 w-full")}
+            resizeMode="contain"
+            style={tw.style("h-1/5 w-full")}
             source={require("../assets/hy2.png")}
           />
           <Text style={tw.style("text-white p-5")}>Crie uma nova conta</Text>
