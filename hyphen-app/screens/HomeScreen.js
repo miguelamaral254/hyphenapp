@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, {  useEffect, useLayoutEffect, useRef, useState  } from "react";
 import {
   View,
   Text,
@@ -12,6 +12,18 @@ import useAuth from "../hooks/useAuth";
 import { Entypo, Ionicons } from "@expo/vector-icons/";
 import { useNavigation } from "@react-navigation/native";
 import Swiper from "react-native-deck-swiper";
+import { db, timestamp } from "../firebase";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
+
 const DUMMY_DATA = [
   {
     displayName: "Miguel Augusto",
@@ -20,7 +32,7 @@ const DUMMY_DATA = [
       "App mobile desenvolvido em react native, com prótitpo de alta fidelidade feito no Figma.",
     job: "Software Engineer",
     photoURL:
-      "https://instagram.frec17-1.fna.fbcdn.net/v/t51.2885-19/331815343_570029035178473_203142887568872698_n.jpg?stp=dst-jpg_s150x150&cb=efdfa7ed-2feb43a7&efg=eyJxZV9ncm91cHMiOiJbXCJpZ19ianBnX3Byb2ZpbGVfcGljXzA3MDVfd2VicF9jb250cm9sLU5vbmVcIl0ifQ&_nc_ht=instagram.frec17-1.fna.fbcdn.net&_nc_cat=101&_https://instagram.frec17-1.fna.fbcdn.net/v/t51.2885-19/331815343_570029035178473_203142887568872698_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.frec17-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=zAjzNMsZJ_UAX8ENpkB&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfBZrWR_946RBwozkz43u4YlP3ASixZhGa6-Dl4iT8S80g&oe=65143695&_nc_sid=ee9879nc_ohc=dAvBFURp98kAX8zXpnp&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfCySj4Nd7ziRh2JRSfvCDkx6NSrRTURc0UlRmTAyVddbg&oe=650C4D95&_nc_sid=ee9879",
+    "https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
     age: 25,
     id: 1,
   },
@@ -48,7 +60,144 @@ const DUMMY_DATA = [
 const HomeScreen = () => {
   const { user, logout } = useAuth();
   const navigation = useNavigation();
-  const swipeRef = useRef();
+  const [profiles, setProfiles] = useState([]);
+  const swipeRef = useRef(null);
+
+  useLayoutEffect(() => {
+    // const unsubscribe = onSnapshot(doc(db, "users", user.uid), (snapShot) => {
+    //   console.log(snapShot.data());
+    //   if (!snapShot.exists()) {
+    //     navigation.navigate("Modal");
+    //   }
+    // });
+
+    // return unsubscribe();
+    getDoc(doc(db, "users", user.uid)).then((snapShot) => {
+      if (!snapShot.exists()) {
+        navigation.navigate("Modal");
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    let unsub;
+
+    const fetchCards = async () => {
+      //comes after doing passes in swipeleft
+
+      const passes = await getDocs(
+        collection(db, "users", user.uid, "passes")
+      ).then((snapShot) => snapShot.docs.map((doc) => doc.id));
+
+      console.log(passes);
+
+      const swipes = await getDocs(
+        collection(db, "users", user.uid, "swipes")
+      ).then((snapShot) => snapShot.docs.map((doc) => doc.id));
+
+      const passedUserIds = passes.length > 0 ? passes : ["temp"];
+      const swipedUserIds = swipes.length > 0 ? swipes : ["temp"];
+
+      unsub = onSnapshot(
+        query(
+          collection(db, "users"),
+          where("id", "not-in", [...passedUserIds, ...swipedUserIds])
+        ),
+        (snapShot) => {
+          setProfiles(
+            snapShot.docs
+              .filter((doc) => doc.id !== user.uid)
+              .map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }))
+          );
+        }
+      );
+
+      //comes before doing passes in swipeleft
+
+      // unsub = onSnapshot(collection(db, "users"), (snapShot) => {
+      //   setProfiles(
+      //     snapShot.docs
+      //       .filter((doc) => doc.id !== user.uid)
+      //       .map((doc) => ({
+      //         id: doc.id,
+      //         ...doc.data(),
+      //       }))
+      //   );
+      // });
+    };
+
+    fetchCards();
+
+    return unsub;
+  }, []);
+
+  const swipeLeft = (cardIndex) => {
+    if (!profiles[cardIndex]) {
+      return;
+    }
+
+    const userSwiped = profiles[cardIndex];
+    setDoc(doc(db, "users", user.uid, "passes", userSwiped.id), userSwiped);
+  };
+
+  const swipeRight = async (cardIndex) => {
+    // if (!profiles[cardIndex]) {
+    //   return;
+    // }
+
+    // const userSwiped = profiles[cardIndex];
+
+    // setDoc(doc(db, "users", user.uid, "swipes", userSwiped.id), userSwiped);
+
+    try {
+      if (!profiles[cardIndex]) {
+        return;
+      }
+
+      const userSwiped = profiles[cardIndex];
+      const loggedInProfile = await (
+        await getDoc(doc(db, "users", user.uid))
+      ).data();
+
+      console.log("loggedInProfile", loggedInProfile);
+
+      getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
+        (docSnap) => {
+          if (docSnap.exists()) {
+            setDoc(
+              doc(db, "users", user.uid, "swipes", userSwiped.id),
+              userSwiped
+            );
+            setDoc(doc(db, "matches", generateId(user.uid, userSwiped.id)), {
+              users: {
+                [user.uid]: loggedInProfile,
+                [userSwiped.id]: userSwiped,
+              },
+              usersMatched: [user.uid, userSwiped.id],
+              timestamp,
+            });
+
+            console.log(loggedInProfile, userSwiped);
+
+            navigation.navigate("Match", {
+              loggedInProfile,
+              userSwiped,
+            });
+          } else {
+            setDoc(
+              doc(db, "users", user.uid, "swipes", userSwiped.id),
+              userSwiped
+            );
+          }
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
   
   return (
     <ImageBackground
@@ -83,7 +232,7 @@ const HomeScreen = () => {
             containerStyle={{
               backgroundColor: "transparent",
             }}
-            cards={DUMMY_DATA}
+            cards={profiles}
             stackSize={1}
             cardIndex={0}
             animateCardOpacity
@@ -147,7 +296,6 @@ const HomeScreen = () => {
                       style={tw.style("flex-row justify-center items-center")}
                     >
                       <Image
-                        resizeMode="contain"
                         style={tw.style("h-10 w-10 rounded-full")}
                         source={{ uri: card.photoURL }}
                       />
