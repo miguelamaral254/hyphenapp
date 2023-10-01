@@ -17,10 +17,11 @@ const ModalScreen = () => {
   const { user } = useAuth();
   const navigation = useNavigation();
   const [image, setImage] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [age, setAge] = useState("");
   const [job, setJob] = useState("");
 
-  const incompleteForm = !image || !age || !job;
+  const incompleteForm = !image || !name || !age || !job;
 
   const updateUserProfile = () => {
     setDoc(doc(db, "users", user.uid), {
@@ -28,6 +29,7 @@ const ModalScreen = () => {
       displayName: user.displayName,
       photoURL: image,
       job,
+      displayName,
       age,
       timestamp,
     })
@@ -62,7 +64,18 @@ const ModalScreen = () => {
         onChangeText={setImage}
       />
       <Text style={tw.style("text-center p-4 font-bold text-green-500")}>
-        Passo 2: Sua profissão
+        Passo 2: Seu nome para o perfil
+      </Text>
+
+      <TextInput
+        placeholder="Escreva seu nome"
+        style={tw.style("text-center text-xl pb-2")}
+        keyboardType="url"
+        value={displayName}
+        onChangeText={setDisplayName}
+      />
+      <Text style={tw.style("text-center p-4 font-bold text-green-500")}>
+        Passo 3: Sua profissão
       </Text>
 
       <TextInput
@@ -72,7 +85,7 @@ const ModalScreen = () => {
         value={job}
       />
       <Text style={tw.style("text-center p-4 font-bold text-green-500")}>
-        Passo 3: Sua idade
+        Passo 4: Sua idade
       </Text>
 
       <TextInput
