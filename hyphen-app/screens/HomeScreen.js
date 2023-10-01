@@ -23,6 +23,7 @@ import {
   setDoc,
   where,
 } from "firebase/firestore";
+import { generateId } from "../lib/generatedId"
 
 const DUMMY_DATA = [
   {
@@ -357,13 +358,7 @@ const HomeScreen = () => {
           >
             <Entypo name="heart" size={40} color="green" />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={tw.style(
-              "items-center justify-center rounded-full w-16 h-16 bg-white shadow-2xl"
-            )}
-          >
-            <Entypo name="user" size={40} color="black" />
-          </TouchableOpacity>
+          
         </View>
       </SafeAreaView>
     </ImageBackground>

@@ -1,7 +1,5 @@
 module.exports = {
-  content: [
-    "./src/screens/*.js"
-  ],
+  content: [],
   theme: {
     extend: {
       colors: {
@@ -14,5 +12,4 @@ module.exports = {
     }
   },
   plugins: [],
-  corePlugins: require('tailwind-rn/unsupported-core-plugins'),
 }

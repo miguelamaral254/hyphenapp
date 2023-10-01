@@ -124,7 +124,7 @@ const LoginScreen = () => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={tw.style("w-full rounded-lg mt-8 bg-green-100 py-3")}
+              style={tw.style("w-full rounded-lg mt-8 bg-green-400 py-3")}
               onPress={signIn}
             >
               <Text style={tw.style("text-center text-white font-bold")}>
