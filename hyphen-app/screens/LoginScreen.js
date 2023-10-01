@@ -85,8 +85,7 @@ const LoginScreen = () => {
   return (
     <ImageBackground
       style={tw.style("flex-1 bg-black")}
-      resizeMode="cover"
-      source={require("../assets/bg.jpg")}
+      
     >
       {type === 1 ? (
         <View style={tw.style("flex-1 justify-center items-center")}>
@@ -96,39 +95,46 @@ const LoginScreen = () => {
             source={require("../assets/hy2.png")}
           />
 
-          <Text style={tw.style("text-gray-300 p-5 font-semibold")}>
+          <Text style={tw.style("text-gray-500 p-5 font-semibold")}>
             O melhor lugar do mundo para{"\n"}encontrar parceiros de trabalho
           </Text>
           <View style={tw.style("w-full p-5")}>
-            <Text style={tw.style("font-semibold pb-2 text-white")}>Email</Text>
+            <Text style={tw.style("font-semibold pb-2 text-gray-500")}>Email</Text>
             <TextInput
               keyboardType="email-address"
               style={tw.style(
-                "border border-gray-300 text-sm text-gray-300 rounded-lg w-full p-2.5 mb-4"
+                "border border-gray-400 text-sm text-gray-300 rounded-lg w-full p-2.5 mb-4"
               )}
               value={email}
               onChangeText={(text) => setEmail(text)}
             />
-            <Text style={tw.style("font-semibold pb-2 text-white")}>Senha</Text>
+            <Text style={tw.style("font-semibold pb-2 text-gray-500")}>Senha</Text>
             <TextInput
               keyboardType="default"
               secureTextEntry={true}
               style={tw.style(
-                "border border-gray-300 text-sm text-gray-300 rounded-lg w-full p-2.5 mb-4"
+                "border border-gray-400 text-sm text-gray-300 rounded-lg w-full p-2.5 mb-4"
               )}
               value={password}
               onChangeText={(text) => setPassword(text)}
             />
+            <TouchableOpacity style={tw.style("flex pr-3 items-end")}>
+              <Text style={tw.style("text-green-400")}>
+                Recuperar senha
+              </Text>
+            </TouchableOpacity>
             <TouchableOpacity
-              style={tw.style("w-full rounded-lg mt-8 bg-green-400 py-3")}
+              style={tw.style("w-full rounded-lg mt-8 bg-green-100 py-3")}
               onPress={signIn}
             >
               <Text style={tw.style("text-center text-white font-bold")}>
                 Entrar
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setType(2)}>
-              <Text style={tw.style("text-center text-gray-100 pt-3")}>
+            <TouchableOpacity
+            style={tw.style("w-full border border-green-700 rounded-lg mt-2 py-3")} 
+            onPress={() => setType(2)}>
+              <Text style={tw.style("text-center text-green-100 ")}>
                 Crie sua conta
               </Text>
             </TouchableOpacity>

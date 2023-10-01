@@ -1,10 +1,15 @@
 module.exports = {
-  content: [],
+  content: [
+    "./src/screens/*.js"
+  ],
   theme: {
     extend: {
       colors: {
-        primary: '#0a0a0a',
-        accent: '#B809C3',
+        green: {
+        100:'#00FF19',
+          
+        },
+        
       }
     }
   },
