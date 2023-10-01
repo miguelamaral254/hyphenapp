@@ -36,14 +36,7 @@ const HomeScreen = () => {
  
 
   useLayoutEffect(() => {
-    // const unsubscribe = onSnapshot(doc(db, "users", user.uid), (snapShot) => {
-    //   console.log(snapShot.data());
-    //   if (!snapShot.exists()) {
-    //     navigation.navigate("Modal");
-    //   }
-    // });
-
-    // return unsubscribe();
+    
     getDoc(doc(db, "users", user.uid)).then((snapShot) => {
       if (!snapShot.exists()) {
         navigation.navigate("Modal");

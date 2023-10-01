@@ -9,7 +9,8 @@ const Header = ({title, callEnabled}) => {
     
     <View style={tw.style("p-2 flex-row items-center justify-between")}>
         <View style={tw.style("flex flex-row items-center")}>
-        <TouchableOpacity style={tw.style("flex ")}>
+        <TouchableOpacity style={tw.style("p-2 ")}
+        onPress={()=> navigation.goBack()}>
             <Ionicons 
             name="chevron-back-outline"
             size={34}
@@ -19,7 +20,7 @@ const Header = ({title, callEnabled}) => {
         <Text style={tw.style("text-2xl font-bold pl-2")}>{title} </Text>
         </View>
         {callEnabled && (
-            <TouchableOpacity>
+            <TouchableOpacity style={tw.style("rounded-full mr-4 p-3 bg-green-400")}>
                 <Foundation name="telephone" size={20} color="#00FF19"/>
             </TouchableOpacity>
         )}
