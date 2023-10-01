@@ -1,16 +1,17 @@
-import React, {  useEffect, useLayoutEffect, useRef, useState  } from "react";
 import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
+  Button,
   Image,
-  ImageBackground
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+  View,
 } from "react-native";
-import tw from "tailwind-react-native-classnames";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import useAuth from "../hooks/useAuth";
-import { Entypo, Ionicons } from "@expo/vector-icons/";
 import { useNavigation } from "@react-navigation/native";
+import tw from "tailwind-react-native-classnames";
+import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
 import Swiper from "react-native-deck-swiper";
 import { db, timestamp } from "../firebase";
 import {
@@ -23,46 +24,16 @@ import {
   setDoc,
   where,
 } from "firebase/firestore";
-import { generateId } from "../lib/generatedId"
+import generateId from "../lib/generateId";
 
-const DUMMY_DATA = [
-  {
-    displayName: "Miguel Augusto",
-    project: "HYPHEN",
-    projDisc:
-      "App mobile desenvolvido em react native, com prótitpo de alta fidelidade feito no Figma.",
-    job: "Software Engineer",
-    photoURL:
-    "https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
-    age: 25,
-    id: 1,
-  },
-  {
-    displayName: "Mark Zuckerberg",
-    project: "Facebook",
-    projDisc: "Rede social",
-    job: "Programmer",
-    photoURL:
-      "https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
-    age: 39,
-    id: 2,
-  },
-  {
-    displayName: "Justin Mateen",
-    project: "Tinder",
-    projDisc: "App de relacionamentos",
-    job: "Software Developer",
-    photoURL:
-      "https://i.insider.com/606730e3856cd700198a2dd1?width=1136&format=jpeg",
-    age: 37,
-    id: 3,
-  },
-];
+
+
 const HomeScreen = () => {
   const { user, logout } = useAuth();
   const navigation = useNavigation();
   const [profiles, setProfiles] = useState([]);
   const swipeRef = useRef(null);
+ 
 
   useLayoutEffect(() => {
     // const unsubscribe = onSnapshot(doc(db, "users", user.uid), (snapShot) => {
