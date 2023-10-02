@@ -21,7 +21,7 @@ const ModalScreen = () => {
   const [age, setAge] = useState("");
   const [job, setJob] = useState("");
 
-  const incompleteForm = !image || !name || !age || !job;
+  const incompleteForm = !image || !displayName || !age || !job;
 
   const updateUserProfile = () => {
     setDoc(doc(db, "users", user.uid), {
